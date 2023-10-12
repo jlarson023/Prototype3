@@ -27,16 +27,14 @@ public class PeterParkerController : MonoBehaviour
     private Animator animator;
 
     //Particles
-    public ParticleSystem rightDustCloud;
-    public ParticleSystem leftDustCloud;
+    public ParticleSystem dustCloud;
 
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody>();
         animator = GetComponent<Animator>();
-        rightDustCloud.Stop();
-        leftDustCloud.Stop();
+        dustCloud.Stop();
     }
 
     // Update is called once per frame
@@ -48,15 +46,13 @@ public class PeterParkerController : MonoBehaviour
         //walk animation
         animator.SetFloat("verticalInput", Mathf.Abs(verticalInput));
         //Activate or deactivate dust cloud
-        if (verticalInput > 0 && (!rightDustCloud.isPlaying || !leftDustCloud.isPlaying))
+        if (verticalInput > 0 && !dustCloud.isPlaying)
         {
-            rightDustCloud.Play();
-            leftDustCloud.Play();
+            dustCloud.Play();
         }
         else if (verticalInput <= 0)
         {
-            rightDustCloud.Stop();
-            leftDustCloud.Stop();
+            dustCloud.Stop();
         }
 
 
