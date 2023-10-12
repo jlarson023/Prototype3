@@ -19,6 +19,8 @@ public class AnimatedPlayerController : MonoBehaviour
     //Animation Variables
     private Animator animator;
 
+    //Particles
+    public ParticleSystem dustCloud;
 
     // Start is called before the first frame update
     void Start()
@@ -26,7 +28,7 @@ public class AnimatedPlayerController : MonoBehaviour
         //Get Components
         rb = GetComponent<Rigidbody>();
         animator = GetComponent<Animator>();
-
+        dustCloud.Stop();
 
     }
 
@@ -39,6 +41,15 @@ public class AnimatedPlayerController : MonoBehaviour
 
         //Activate or Deactivate running
         animator.SetFloat("verticalInput", Mathf.Abs(verticalInput));
+
+        //Activate dust cloud
+        if(verticalInput > 0 && !dustCloud.isPlaying)
+        {
+            dustCloud.Play();
+        }else if (verticalInput <= 0)
+        {
+            dustCloud.Stop();
+        }
 
         //Rotation
         horizontalInput = Input.GetAxis("Horizontal");
